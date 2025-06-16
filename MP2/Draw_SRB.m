@@ -1,0 +1,48 @@
+function [] = Draw_SRB(x_shift,y_shift,z_shift,thrust)
+% Function to draw a solid rocket booster, thrust from the booster can
+% also be drawn.
+% Inputs:
+% x_shift(value to shift the position of the SRB in the x-axis in m)
+% y_shift(value to shift the position of the SRB in the y-axis in m)
+% z_shift(value to shift the position of the SRB in the z-axis in m)
+% thrust(turn the thrust either on or off takes value 1 or 0)
+
+% Version 1: created: 23/05/2023. Author: Michael Campion
+
+if (~(isreal(x_shift)))
+    error('x_shif must be real')
+end
+if (~(isreal(y_shift)))
+    error('y_shift must be real')
+end
+if (~(isreal(z_shift)))
+    error('z_shift must be real')
+end
+if (~(isreal(thrust)))
+    error('thrust must be real')
+end
+[X1,Y1,Z1] = cylinder(1.85);
+
+surf_handle1 = surf(X1 + x_shift,Y1 + y_shift,35*Z1 + z_shift);
+set(surf_handle1,'LineStyle','none','FaceColor','white')
+axis equal 
+%axis([-20 20 -20 20 -10 200])
+light 
+hold on 
+
+[X2,Y2,Z2] = cylinder([1.85 0]);
+surf_handle2 = surf(X2 + x_shift,Y2 + y_shift,5*Z2 + 35 + z_shift);
+set(surf_handle2,'LineStyle','none','FaceColor','white')
+
+[X3,Y3,Z3] = cylinder([2.5,1.85]);
+surf_handle3 = surf(X3 + x_shift,Y3 + y_shift,3*Z3 - 3 + z_shift);
+set(surf_handle3,'LineStyle','none','FaceColor','white')
+
+%Thrust 
+if thrust == 1 
+    [X4,Y4,Z4] = cylinder(2.5);
+    surf_handle4 = surf(X4 + x_shift,Y4 + y_shift,6*Z4 - 9 + z_shift);
+    set(surf_handle4,'LineStyle','none','FaceColor','[1.0000    0.5216    0.0784]')
+
+hold off
+end
